@@ -32,4 +32,9 @@ class Business extends Model
     {
         return $this->hasMany(Property::class);
     }
+
+    public function guests(): HasMany
+    {
+        return $this->hasMany(Guest::class);
+    }
 }
