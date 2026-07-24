@@ -50,4 +50,9 @@ class Property extends Model
     {
         return $this->hasMany(Reservation::class);
     }   
+
+    public function ratePlans(): HasMany
+    {
+        return $this->hasMany(RatePlan::class);
+    }
 }
