@@ -60,4 +60,9 @@ class Property extends Model
     {
         return $this->hasMany(Season::class);
     }
+
+    public function promotions(): HasMany
+    {
+        return $this->hasMany(Promotion::class);
+    }
 }
