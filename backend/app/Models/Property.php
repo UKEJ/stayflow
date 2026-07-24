@@ -55,4 +55,9 @@ class Property extends Model
     {
         return $this->hasMany(RatePlan::class);
     }
+
+    public function seasons(): HasMany
+    {
+        return $this->hasMany(Season::class);
+    }
 }
