@@ -8,6 +8,7 @@ use App\Models\Reservation;
 use App\Models\Unit;
 use App\Services\Availability\AvailabilityService;
 use App\Services\Pricing\PricingService;
+use App\DataTransferObjects\PricingContext;
 use App\Services\Reservation\ReservationReferenceService;
 use Carbon\Carbon;
 
@@ -35,11 +36,16 @@ class BookingService
             throw new \Exception('Unit is not available for the selected dates.');
         }
 
-        $total = $this->pricingService->calculate(
-            $unit,
-            $ratePlan,
-            $checkIn,
-            $checkOut
+        $pricing = $this->pricingService->calculate(
+        new PricingContext(
+        unit: $unit,
+        guest: $guest,
+        ratePlan: $ratePlan,
+        checkIn: $checkIn,
+        checkOut: $checkOut,
+        adults: $adults,
+        children: $children,
+        )
         );
 
         return Reservation::create([
@@ -57,7 +63,7 @@ class BookingService
             'adults' => $adults,
             'children' => $children,
 
-            'total_amount' => $total,
+            'total_amount' => $pricing->total,
 
             'status' => 'confirmed',
 

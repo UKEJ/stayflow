@@ -2,29 +2,42 @@
 
 namespace App\Services\Pricing;
 
-use App\Models\RatePlan;
-use App\Models\Unit;
+use App\DataTransferObjects\PricingContext;
+use App\DataTransferObjects\PricingResult;
 use Carbon\Carbon;
 
 class PricingService
 {
-    public function calculate(
-        Unit $unit,
-        RatePlan $ratePlan,
-        Carbon $checkIn,
-        Carbon $checkOut,
-        array $context = []
+    public function calculate(PricingContext $context): PricingResult
+    {
+        $subtotal = 0;
+
+        $date = $context->checkIn->copy();
+
+        while ($date->lt($context->checkOut)) {
+
+            $subtotal += $this->nightlyRate(
+                $context,
+                $date
+            );
+
+            $date->addDay();
+        }
+
+        return new PricingResult(
+            subtotal: $subtotal,
+            discount: 0,
+            tax: 0,
+            total: $subtotal,
+            breakdown: [],
+        );
+    }
+
+    protected function nightlyRate(
+        PricingContext $context,
+        Carbon $date
     ): float {
 
-        $price = (float) $ratePlan->base_price;
-
-        // Future:
-        // Seasons
-        // Pricing Rules
-        // Promotions
-        // Taxes
-        // Channel pricing
-
-        return $price;
+        return (float) $context->ratePlan->base_price;
     }
 }
