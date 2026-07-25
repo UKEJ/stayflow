@@ -17,6 +17,7 @@ class Reservation extends Model
         'property_id',
         'guest_id',
         'unit_id',
+        'rate_plan_id',
         'reference',
         'check_in',
         'check_out',
@@ -56,5 +57,10 @@ class Reservation extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function ratePlan(): BelongsTo
+    {
+    return $this->belongsTo(RatePlan::class);
     }
 }

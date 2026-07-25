@@ -14,6 +14,7 @@ class DevelopmentSeeder extends Seeder
             UnitTypeSeeder::class,
             UnitSeeder::class,
             GuestSeeder::class,
+            RatePlanSeeder::class,
             ReservationSeeder::class,
         ]);
     }

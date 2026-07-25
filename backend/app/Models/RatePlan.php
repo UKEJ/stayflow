@@ -13,11 +13,13 @@ class RatePlan extends Model
     use HasUuids, SoftDeletes;
 
     protected $fillable = [
-        'property_id',
-        'name',
-        'description',
-        'base_price',
-        'is_active',
+    'property_id',
+    'name',
+    'code',
+    'description',
+    'base_price',
+    'currency',
+    'is_active',
     ];
 
     protected $casts = [
