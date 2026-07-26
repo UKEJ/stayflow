@@ -15,15 +15,22 @@ class PricingRule extends Model
         'rate_plan_id',
         'season_id',
         'name',
+        'rule_type',
         'adjustment_type',
+        'operator',
         'adjustment_value',
+        'conditions',
+        'starts_on',
+        'ends_on',
         'priority',
         'is_active',
     ];
 
     protected $casts = [
+        'conditions' => 'array',
+        'starts_on' => 'date',
+        'ends_on' => 'date',
         'adjustment_value' => 'decimal:2',
-        'priority' => 'integer',
         'is_active' => 'boolean',
     ];
 
