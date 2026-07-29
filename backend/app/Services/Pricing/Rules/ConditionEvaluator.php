@@ -4,31 +4,33 @@ namespace App\Services\Pricing\Rules;
 
 use App\DataTransferObjects\PricingContext;
 use App\Models\PricingRule;
+use App\Services\Pricing\Conditions\ConditionRegistry;
 use Carbon\Carbon;
 
 class ConditionEvaluator
 {
+    public function __construct(
+        protected ConditionRegistry $registry,
+    ) {
+    }
+
     public function passes(
         PricingRule $rule,
         PricingContext $context,
         Carbon $date
     ): bool {
 
-        $conditions = $rule->conditions ?? [];
+        foreach ($this->registry->all() as $condition) {
 
-        if (empty($conditions)) {
-            return true;
-        }
+            $key = $condition->key();
 
-        if (isset($conditions['days'])) {
+            if (! isset(($rule->conditions ?? [])[$key])) {
+                continue;
+            }
 
-            $today = strtolower($date->format('l'));
-
-            return in_array(
-                $today,
-                array_map('strtolower', $conditions['days']),
-                true
-            );
+            if (! $condition->passes($rule, $context, $date)) {
+                return false;
+            }
         }
 
         return true;

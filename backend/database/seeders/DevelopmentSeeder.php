@@ -15,8 +15,9 @@ class DevelopmentSeeder extends Seeder
             UnitSeeder::class,
             GuestSeeder::class,
             RatePlanSeeder::class,
-            PricingRuleSeeder::class,
             ReservationSeeder::class,
+            SeasonSeeder::class,
+            PricingRuleSeeder::class,
         ]);
     }
 }
