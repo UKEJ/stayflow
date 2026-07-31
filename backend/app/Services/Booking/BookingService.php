@@ -2,13 +2,14 @@
 
 namespace App\Services\Booking;
 
+use App\DataTransferObjects\PricingContext;
 use App\Models\Guest;
 use App\Models\RatePlan;
 use App\Models\Reservation;
 use App\Models\Unit;
 use App\Services\Availability\AvailabilityService;
+use App\Services\Folio\FolioService;
 use App\Services\Pricing\PricingService;
-use App\DataTransferObjects\PricingContext;
 use App\Services\Reservation\ReservationReferenceService;
 use Carbon\Carbon;
 
@@ -18,6 +19,7 @@ class BookingService
         protected AvailabilityService $availabilityService,
         protected ReservationReferenceService $referenceService,
         protected PricingService $pricingService,
+        protected FolioService $folioService,
     ) {
     }
 
@@ -37,18 +39,18 @@ class BookingService
         }
 
         $pricing = $this->pricingService->calculate(
-        new PricingContext(
-        unit: $unit,
-        guest: $guest,
-        ratePlan: $ratePlan,
-        checkIn: $checkIn,
-        checkOut: $checkOut,
-        adults: $adults,
-        children: $children,
-        )
+            new PricingContext(
+                unit: $unit,
+                guest: $guest,
+                ratePlan: $ratePlan,
+                checkIn: $checkIn,
+                checkOut: $checkOut,
+                adults: $adults,
+                children: $children,
+            )
         );
 
-        return Reservation::create([
+        $reservation = Reservation::create([
             'business_id' => $guest->business_id,
             'property_id' => $unit->property_id,
             'guest_id' => $guest->id,
@@ -69,5 +71,9 @@ class BookingService
 
             'notes' => $notes,
         ]);
+
+        $this->folioService->createForReservation($reservation);
+
+        return $reservation;
     }
 }

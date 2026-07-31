@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Reservation extends Model
 {
@@ -62,5 +63,10 @@ class Reservation extends Model
     public function ratePlan(): BelongsTo
     {
     return $this->belongsTo(RatePlan::class);
+    }
+
+    public function folio(): HasOne
+    {
+    return $this->hasOne(Folio::class);
     }
 }
