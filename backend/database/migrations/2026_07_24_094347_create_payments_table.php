@@ -10,45 +10,54 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-        {
-            Schema::create('payments', function (Blueprint $table) {
-                $table->uuid('id')->primary();
+    {
+        Schema::create('payments', function (Blueprint $table) {
 
-                $table->foreignUuid('reservation_id')
-                    ->constrained()
-                    ->cascadeOnDelete();
+            $table->uuid('id')->primary();
 
-                $table->string('reference')->unique();
+            $table->foreignUuid('business_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
-                $table->decimal('amount', 12, 2);
+            $table->foreignUuid('folio_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
-                $table->string('currency', 3)->default('NGN');
+            $table->string('reference')->unique();
 
-                $table->enum('method', [
-                    'cash',
-                    'card',
-                    'bank_transfer',
-                    'mobile_money',
-                    'online',
-                    'other'
-                ]);
+            $table->decimal('amount', 12, 2);
 
-                $table->enum('status', [
-                    'pending',
-                    'successful',
-                    'failed',
-                    'refunded'
-                ])->default('pending');
+            $table->string('currency', 3)->default('NGN');
 
-                $table->timestamp('paid_at')->nullable();
+            $table->enum('method', [
+                'cash',
+                'card',
+                'bank_transfer',
+                'pos',
+                'wallet',
+                'mobile_money',
+                'other',
+            ]);
 
-                $table->text('notes')->nullable();
+            $table->enum('status', [
+                'pending',
+                'completed',
+                'failed',
+                'refunded',
+                'voided',
+            ])->default('completed');
 
-                $table->timestamps();
+            $table->timestamp('paid_at');
 
-                $table->softDeletes();
-            });
-        }
+            $table->text('notes')->nullable();
+
+            $table->json('metadata')->nullable();
+
+            $table->timestamps();
+
+            $table->softDeletes();
+        });
+    }
 
     /**
      * Reverse the migrations.
