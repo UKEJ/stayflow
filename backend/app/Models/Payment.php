@@ -12,7 +12,8 @@ class Payment extends Model
     use HasUuids, SoftDeletes;
 
     protected $fillable = [
-        'reservation_id',
+        'business_id',
+        'folio_id',
         'reference',
         'amount',
         'currency',
@@ -20,15 +21,22 @@ class Payment extends Model
         'status',
         'paid_at',
         'notes',
+        'metadata',
     ];
 
     protected $casts = [
         'amount' => 'decimal:2',
         'paid_at' => 'datetime',
+        'metadata' => 'array',
     ];
 
-    public function reservation(): BelongsTo
+    public function business(): BelongsTo
     {
-        return $this->belongsTo(Reservation::class);
+        return $this->belongsTo(Business::class);
+    }
+
+    public function folio(): BelongsTo
+    {
+        return $this->belongsTo(Folio::class);
     }
 }
