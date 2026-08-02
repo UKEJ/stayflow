@@ -14,6 +14,10 @@ class AvailabilityService
         Carbon $checkOut
     ): bool {
 
+    if ($unit->housekeeping_status === 'out_of_order') {
+        return false;
+    }
+
         $conflict = Reservation::query()
 
             ->where('unit_id', $unit->id)
