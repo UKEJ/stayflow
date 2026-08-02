@@ -18,10 +18,12 @@ class Unit extends Model
         'identifier',
         'name',
         'is_active',
+        'is_occupied',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'is_occupied' => 'boolean',
     ];
 
     public function property(): BelongsTo
