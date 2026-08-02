@@ -38,6 +38,7 @@ class CheckOutService
 
             $reservation->unit->update([
                 'is_occupied' => false,
+                'housekeeping_status' => 'dirty',
             ]);
 
             $folio->update([

@@ -19,6 +19,7 @@ class Unit extends Model
         'name',
         'is_active',
         'is_occupied',
+        'housekeeping_status',
     ];
 
     protected $casts = [
