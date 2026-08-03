@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class MaintenanceResolutionService
-
 {
     public function resolve(Maintenance $maintenance): Maintenance
     {
