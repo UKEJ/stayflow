@@ -44,4 +44,9 @@ class Business extends Model
         return $this->hasMany(Reservation::class);
     }
 
+    public function businessDays(): HasMany
+    {
+        return $this->hasMany(BusinessDay::class);
+    }
+
     }
