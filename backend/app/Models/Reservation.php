@@ -1,13 +1,13 @@
 <?php
-// Reservation.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reservation extends Model
 {
@@ -55,18 +55,23 @@ class Reservation extends Model
         return $this->belongsTo(Unit::class);
     }
 
+    public function ratePlan(): BelongsTo
+    {
+        return $this->belongsTo(RatePlan::class);
+    }
+
+    public function folio(): HasOne
+    {
+        return $this->hasOne(Folio::class);
+    }
+
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
     }
 
-    public function ratePlan(): BelongsTo
+    public function nights(): HasMany
     {
-    return $this->belongsTo(RatePlan::class);
-    }
-
-    public function folio(): HasOne
-    {
-    return $this->hasOne(Folio::class);
+        return $this->hasMany(ReservationNight::class);
     }
 }
