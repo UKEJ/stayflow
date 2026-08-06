@@ -13,4 +13,4 @@ class NightlyPrice
         public array $appliedRules = [],
     ) {
     }
-}
+} 
