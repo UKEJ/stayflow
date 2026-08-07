@@ -8,7 +8,7 @@ class NightlyPrice
 {
     public function __construct(
         public Carbon $date,     git 
-        public float $basePrice,
+        public float $basePrice,     
         public float $finalPrice,
         public array $appliedRules = [],
     ) {
