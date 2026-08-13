@@ -11,7 +11,7 @@ class Maintenance extends Model
 {
     use HasUuids, SoftDeletes;
 
-    protected $fillable = [
+    protected $fillable = [ 
         'business_id',
         'unit_id',
         'reference',
