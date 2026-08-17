@@ -24,4 +24,4 @@ class MaintenanceResolutionService
             return $maintenance->fresh();
         });
     }
-}        
+}
