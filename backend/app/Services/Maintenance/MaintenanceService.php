@@ -48,5 +48,5 @@ class MaintenanceService
 
             return $maintenance;
         });
-    }      
+    }        
 }
