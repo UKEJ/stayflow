@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class BusinessDayService
-{
+{     
     public function current(Business $business): BusinessDay
     {
         $current = BusinessDay::where('business_id', $business->id)
