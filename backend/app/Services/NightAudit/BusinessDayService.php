@@ -7,7 +7,7 @@ use App\Models\BusinessDay;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class BusinessDayService    
+class BusinessDayService  
 {
     public function current(Business $business): BusinessDay
     {
