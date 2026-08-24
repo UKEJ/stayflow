@@ -4,7 +4,7 @@ namespace App\DataTransferObjects;
 
 use Carbon\Carbon;
 
-class NightlyPrice    
+class NightlyPrice      
 {
     public function __construct(
         public Carbon $date,
