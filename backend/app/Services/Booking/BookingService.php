@@ -13,7 +13,7 @@ use App\Services\Pricing\PricingService;
 use App\Services\Reservation\ReservationReferenceService;
 use Carbon\Carbon;
 
-class BookingService  
+class BookingService    
 {
     public function __construct(
         protected AvailabilityService $availabilityService,
